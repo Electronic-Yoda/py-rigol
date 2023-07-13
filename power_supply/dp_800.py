@@ -7,9 +7,9 @@ class DP800:
     Rigol DP800 command wrapper.
     """
 
-    def __init__(self, inst):
-        
-        self.instance = inst
+    def __init__(self, resource):
+
+        self.resource = resource
 
         self.measure_LUT = {"Current": "CURR", "Voltage": "VOLT", "Power": "POWE"}
         
@@ -18,7 +18,7 @@ class DP800:
         self.limits_channel_voltage = {"CH1": 8, "CH2": 30, "CH3": -30}
 
     def __enter__(self):
-        self.inst = ResourceManager().open_resource(self.resource_string)
+        self.inst = ResourceManager().open_resource(self.resource)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -43,6 +43,7 @@ class DP800:
         elif len(relevant_resources) > 1:
             raise ValueError(f"Multiple DP800 series resources found: {relevant_resources}. Choose one manually, and use the from_resource_id() method.")
 
+        return cls(relevant_resources[0])
 
     def query_channel(self):
         query_result = self.instance.query(":INST?").partition("\n")

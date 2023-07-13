@@ -5,9 +5,9 @@ class DL3000(object):
     """
     Rigol DL3000 command wrapper.
     """
-    def __init__(self, inst):
+    def __init__(self, resource):
         self.key_app_state = 0
-        self.inst = inst
+        self.resource = resource
 
         # Key IDs
         self.key_utility = 9
@@ -15,7 +15,7 @@ class DL3000(object):
         self.knob_cntclk_w = 35
 
     def __enter__(self):
-        self.inst = ResourceManager().open_resource(self.resource_string)
+        self.inst = ResourceManager().open_resource(self.resource)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
