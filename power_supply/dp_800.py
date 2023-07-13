@@ -8,11 +8,7 @@ class DP800:
     """
 
     def __init__(self, inst):
-        """
-        Initialize the DP800 wrapper with a specific PyVISA resource.
-        This class does NOT open the resource, you have to open it when passed as 
-        an instance.
-        """
+        
         self.instance = inst
 
         self.measure_LUT = {"Current": "CURR", "Voltage": "VOLT", "Power": "POWE"}
